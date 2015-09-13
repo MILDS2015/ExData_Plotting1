@@ -1,0 +1,10 @@
+hhd <- read.table("./household_power_consumption.txt",sep=";", header=TRUE,na.strings="?")
+tmp<- hhd[hhd$Date=="1/2/2007" | hhd$Date == "2/2/2007",]
+tmp1 <- transform(tmp, Dt=as.POSIXct(paste(tmp$Date,tmp$Time,sep=":"),format='%d/%m/%Y:%H:%M:%S'))
+png("./plot3.png")
+par(mfrow=c(1,1))
+plot(tmp1$Sub_metering_1~tmp1$Dt,ylab="Energy sub Metering",type="l",xlab="")
+lines(tmp1$Sub_metering_2~tmp1$Dt, col="red")
+lines(tmp1$Sub_metering_3~tmp1$Dt, col="blue")
+legend("topright",legend=c("Sub_metering_1","Sub_metering_2","Sub_metering_3"),lty="solid",col=c("Black","red","blue"))
+dev.off()
